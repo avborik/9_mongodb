@@ -29,9 +29,44 @@ const url = 'mongodb://localhost:27017/test';
 
 MongoClient.connect(url,(err,db)=>{
 
-    db.collection('Cars').findOne({year:'2017'}),{model:0},(err,doc)=>{
-        console.log(doc);
-    }
+    // db.collection('Cars').findOne({year:'2017'}),{model:0},(err,doc)=>{
+    //     console.log(doc);
+    // }
+
+    // db.collection('Cars').deleteMany({year:'1997'},(err,doc)=>{
+    //     console.log(doc)
+    // })
+
+    // db.collection('Cars').deleteOne({year:'1997'},(err,doc)=>{
+    //     console.log(doc)
+    // })
+
+    // db.collection('Cars').findOneAndDelete({year:'1997'},(err,doc)=>{
+    //     console.log(doc)
+    // })
+
+    db.collection('Cars').findOneAndUpdate(
+        {
+            name:"Steve"
+        },
+        {
+            $set:{
+                lastname:"Stevenson"
+            },
+            $inc:{
+                age:+2
+            }
+        },
+        {
+            upsert:true,
+            returnOriginal:true
+        },
+        (err,doc)=>{
+            console.log(doc)
+        }
+        )
+
+
 
     db.close();
 
